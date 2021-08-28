@@ -12,10 +12,11 @@ import java.util.Date;
 public class ReceiveThread extends Thread {
 	public static final int DEFAULT_BUFFER_SIZE = 10000;
 	
-	public boolean isTimeOut = false;
+	public boolean isTimeOut = false; // timeout이 되었으면 true로 변경, 값이 true면 raspManageThread도 중단.
 	private int portNum;
 	private String fileLocation;
-	public int progress = 0;
+	
+	public int progress = 0; //현재 작업량을 나타내는 변수, 추후 sender로부터 파일 뿐만 아니라 진행상황도 받아서 저장
 	
 	
 	public boolean getIsTimeOut() {
