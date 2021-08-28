@@ -12,7 +12,7 @@ public class FileTransferSender {
     public static void main(String[] args) {
         String serverIP = "localhost";              //String serverIP = "127.0.0.1";
         int port = 4999;   //int port = 9999;
-        String FileName = "D:\\Programming code\\eclipse-workspace\\RA_Procjet\\src\\sender\\test.txt";              //String FileName = "test.mp4";
+        String FileName = "D:\\Programming code\\eclipse-workspace\\RA_Procjet\\src\\sender\\cp1.zip";              //String FileName = "test.mp4";
          
         File file = new File(FileName);
         if (!file.exists()) {
