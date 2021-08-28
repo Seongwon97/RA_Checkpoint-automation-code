@@ -51,6 +51,7 @@ public class RaspManageThread extends Thread{
 				break;
 			}
 		}
+		System.out.println("Close Server");
 				
 	}
 
