@@ -1,16 +1,18 @@
 package sender;
 
 public class RaspManageThread extends Thread{
-	private boolean isNormalTerminate; // 정상중지 되었는지 알리는 변수
+	public boolean isNormalTerminate; // 정상중지 되었는지 알리는 변수
 	private int progress; // 현재 일한 양을 나타내주는 변수
+	public boolean isTerminate = false;
 	
 	
+	private int portNum;
+	private String fileLocation;
 	
-	public boolean getIsNormalTerminate() {
-		return isNormalTerminate;
+	public RaspManageThread(int portNum, String fileLocation) {
+		this.portNum = portNum;
+		this.fileLocation = fileLocation;
 	}
-
-
 
 	public int getProgress() {
 		return progress;
@@ -24,8 +26,8 @@ public class RaspManageThread extends Thread{
 		System.out.println("Start Server");
 		while (!isTimeOut) {
 			ReceiveThread th1 = new ReceiveThread();
-			th1.setFilePosition("D:\\\\\\\\Programming code\\\\\\\\eclipse-workspace\\\\\\\\RA_Procjet\\\\\\\\src\\\\\\\\sender\\\\\\\\");
-			th1.setPortNum(4999);
+			th1.setFilePosition("D:\\Programming code\\eclipse-workspace\\RA_Procjet\\src\\sender\\" + fileLocation + "\\");
+			th1.setPortNum(portNum);
 			
 			th1.start();
 			

@@ -14,7 +14,7 @@ public class ReceiveThread extends Thread {
 	
 	public boolean isTimeOut = false;
 	private int portNum;
-	private String filePosition;
+	private String fileLocation;
 	public int progress = 0;
 	
 	
@@ -28,8 +28,8 @@ public class ReceiveThread extends Thread {
 	}
 
 
-	public void setFilePosition(String filePosition) {
-		this.filePosition = filePosition;
+	public void setFilePosition(String fileLocation) {
+		this.fileLocation = fileLocation;
 	}
 
 	
@@ -50,7 +50,7 @@ public class ReceiveThread extends Thread {
             
             
         	fileName = fourteen_format.format(now); 
-        	FileOutputStream fos = new FileOutputStream(filePosition + fileName+".zip");
+        	FileOutputStream fos = new FileOutputStream(fileLocation + fileName+".zip");
         	InputStream is = socket.getInputStream();
         	
         	double startTime = System.currentTimeMillis(); 
