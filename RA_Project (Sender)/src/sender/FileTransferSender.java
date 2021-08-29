@@ -10,9 +10,9 @@ import java.net.UnknownHostException;
 public class FileTransferSender {
     public static final int DEFAULT_BUFFER_SIZE = 10000;
     public static void main(String[] args) {
-        String serverIP = "localhost";              //String serverIP = "127.0.0.1";
+        String serverIP = "192.168.219.108";              //String serverIP = "127.0.0.1";
         int port = 4800;   //int port = 9999;
-        String FileName = "D:\\Programming code\\eclipse-workspace\\RA_Procjet\\src\\sender\\cp1.zip";              //String FileName = "test.mp4";
+        String FileName = "/home/ubuntu/Downloads/checkpoint.tar";              //String FileName = "test.mp4";
          
         File file = new File(FileName);
         if (!file.exists()) {
