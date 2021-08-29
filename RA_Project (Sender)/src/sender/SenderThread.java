@@ -11,19 +11,34 @@ import java.net.UnknownHostException;
 public class SenderThread extends Thread {
     public static final int DEFAULT_BUFFER_SIZE = 10000;
     
-    private String serverIP = "192.168.219.108";              //String serverIP = "127.0.0.1";
-    private int port = 4800;   //int port = 9999;
+    private String serverIP;
+    private int port;
     private String directory;
-    private String fileName = "/home/ubuntu/Downloads/checkpoint.tar";              //String FileName = "test.mp4";
+    private String fileName;              
+    private int count;
     
-    public SenderThread(String serverIP, int port, String directory, String fileName) {
+    public SenderThread(String serverIP, int port, String directory, String fileName, int count) {
     	this.serverIP = serverIP;
     	this.port = port;
     	this.directory = directory;
     	this.fileName = fileName;
+    	this.count = count;
     }
-
+    
     public void run() {
+    	// command thread를 먼저 호출시켜 checkpoint파일 생성을 기다리고
+    	// 파일 생성이 완료되면 아래의 코드로 전송 수행
+    	CommandThread command = new CommandThread(count);
+		command.start();
+		try {
+			command.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+    	
     	File file = new File(directory + fileName);
         if (!file.exists()) {
             System.out.println("File not Exist.");
@@ -71,7 +86,7 @@ public class SenderThread extends Thread {
         double transferSpeed = (fileSize / 1000)/ diffTime;
          
         System.out.println("time: " + diffTime+ " second(s)");
-        System.out.println("Average transfer speed: " + transferSpeed + " KB/s");
+        System.out.println("Average transfer speed: " + transferSpeed + " KB/s\n");
     }
         
 }

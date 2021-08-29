@@ -5,20 +5,41 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class CommandThread extends Thread{
+	private int count;
+	
+	public CommandThread(int count) {
+		this.count = count;
+	}
 	
 	public void run() {
-		System.out.println("Hello, World!");
+		System.out.println("Start makeing checkpoint"+count);
 	    String s;
 	    Process p;
+	    // checkpoint파일 생성
 	    try {
-	    	//이 변수에 명령어를 넣어주면 된다. 
-	        String[] cmd = {"/bin/sh","-c","docker start 4bb2c7ac8c17"};
+	        String[] cmd = {"/bin/sh","-c","docker checkpoint create --leave-running=true --checkpoint-dir=/tmp/checkpoint counter checkpoint"+count};
 	        p = Runtime.getRuntime().exec(cmd);
 	        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 	        while ((s = br.readLine()) != null)
 	            System.out.println(s);
 	        p.waitFor();
 	        System.out.println("exit: " + p.exitValue());
+	        System.out.println("Complete making checkpoint"+count);
+	        p.destroy();
+	    } catch (Exception e) {
+	    	
+	    }
+	    
+	    // Checkpoint파일 압축
+	    try {
+	        String[] cmd = {"/bin/sh","-c","docker checkpoint create --leave-running=true --checkpoint-dir=/tmp/checkpoint counter checkpoint"+count};
+	        p = Runtime.getRuntime().exec(cmd);
+	        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+	        while ((s = br.readLine()) != null)
+	            System.out.println(s);
+	        p.waitFor();
+	        System.out.println("exit: " + p.exitValue());
+	        System.out.println("Complete making checkpoint"+count);
 	        p.destroy();
 	    } catch (Exception e) {
 	    }
