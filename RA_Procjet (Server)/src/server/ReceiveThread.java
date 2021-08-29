@@ -1,4 +1,4 @@
-package sender;
+package server;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -51,7 +51,7 @@ public class ReceiveThread extends Thread {
             
             
         	fileName = fourteen_format.format(now); 
-        	FileOutputStream fos = new FileOutputStream(fileLocation + fileName+".zip");
+        	FileOutputStream fos = new FileOutputStream(fileLocation + fileName+".tar");
         	InputStream is = socket.getInputStream();
         	
         	double startTime = System.currentTimeMillis(); 

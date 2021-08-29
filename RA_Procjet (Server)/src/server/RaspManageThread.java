@@ -1,4 +1,4 @@
-package sender;
+package server;
 
 public class RaspManageThread extends Thread{
 	
@@ -25,6 +25,7 @@ public class RaspManageThread extends Thread{
 
 
 	public void run() {
+		// timeout기능은 추후 추가할 것,
 		boolean isTimeOut = false;
 		
 		System.out.println("Start Server");
