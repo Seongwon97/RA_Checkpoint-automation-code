@@ -12,7 +12,7 @@ public class MainSender {
 	    String s;
 	    Process p;
 	    try {
-	    	//이 변수에 명령어를 넣어주면 된다. 
+	    	// container의 자동 실행
 	        String[] cmd = {"/bin/sh","-c","docker start counter"};
 	        p = Runtime.getRuntime().exec(cmd);
 	        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -24,9 +24,9 @@ public class MainSender {
 	    } catch (Exception e) {
 	    }
 	    
-	    
-		SenderThread sender = new SenderThread("192.168.219.108", 4800, "/tmp/checkpoint/", "checkpoint"+count, count);
-		
+	    // checkpoint내용을 tar파일로 압축이 가능하다면 일정 간격별로 sender를 실행하게 구현
+		SenderThread sender = new SenderThread("192.168.219.108", 4800, "/tmp/checkpoint/", "checkpoint"+count);
+		sender.setCount(count);
 		sender.start();
 	}
 

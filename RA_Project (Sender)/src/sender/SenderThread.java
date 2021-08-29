@@ -17,13 +17,19 @@ public class SenderThread extends Thread {
     private String fileName;              
     private int count;
     
-    public SenderThread(String serverIP, int port, String directory, String fileName, int count) {
+
+
+
+	public SenderThread(String serverIP, int port, String directory, String fileName) {
     	this.serverIP = serverIP;
     	this.port = port;
     	this.directory = directory;
     	this.fileName = fileName;
-    	this.count = count;
     }
+	
+	public void setCount(int count) {
+		this.count = count;
+	}
     
     public void run() {
     	// command thread를 먼저 호출시켜 checkpoint파일 생성을 기다리고
