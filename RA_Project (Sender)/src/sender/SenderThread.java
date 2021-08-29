@@ -1,3 +1,4 @@
+// Server에게 체크포인트 파일을 보내주는 Thread입니다.
 package sender;
 
 import java.io.File;
@@ -7,14 +8,23 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
  
-public class FileTransferSender {
+public class SenderThread extends Thread {
     public static final int DEFAULT_BUFFER_SIZE = 10000;
-    public static void main(String[] args) {
-        String serverIP = "192.168.219.108";              //String serverIP = "127.0.0.1";
-        int port = 4800;   //int port = 9999;
-        String FileName = "/home/ubuntu/Downloads/checkpoint.tar";              //String FileName = "test.mp4";
-         
-        File file = new File(FileName);
+    
+    private String serverIP = "192.168.219.108";              //String serverIP = "127.0.0.1";
+    private int port = 4800;   //int port = 9999;
+    private String directory;
+    private String fileName = "/home/ubuntu/Downloads/checkpoint.tar";              //String FileName = "test.mp4";
+    
+    public SenderThread(String serverIP, int port, String directory, String fileName) {
+    	this.serverIP = serverIP;
+    	this.port = port;
+    	this.directory = directory;
+    	this.fileName = fileName;
+    }
+
+    public void run() {
+    	File file = new File(directory + fileName);
         if (!file.exists()) {
             System.out.println("File not Exist.");
             System.exit(0);
@@ -25,8 +35,8 @@ public class FileTransferSender {
         byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
         int readBytes;
         double startTime = 0;
-         
-        try {
+        
+    	try {
             FileInputStream fis = new FileInputStream(file);
             Socket socket = new Socket(serverIP, port);
             if(!socket.isConnected()){
@@ -63,6 +73,5 @@ public class FileTransferSender {
         System.out.println("time: " + diffTime+ " second(s)");
         System.out.println("Average transfer speed: " + transferSpeed + " KB/s");
     }
+        
 }
-
-// https://twinw.tistory.com/153 [흰고래의꿈]
